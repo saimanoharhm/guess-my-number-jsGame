@@ -1,79 +1,50 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
+/* UNIVERSAL RESET */
+
 * {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 html {
   font-size: 62.5%;
-  box-sizing: border-box;
 }
 
 body {
   font-family: 'Press Start 2P', sans-serif;
   color: #eee;
   background-color: #222;
-  /* background-color: #60b347; */
+  min-height: 100vh;
+  transition: background-color 0.3s;
 }
 
-/* LAYOUT */
+/* HEADER */
+
 header {
   position: relative;
-  height: 35vh;
+  min-height: 35vh;
   border-bottom: 7px solid #eee;
-}
-
-main {
-  height: 65vh;
-  color: #eee;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
+  padding: 7rem 2rem;
 }
 
-.left {
-  width: 52rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.right {
-  width: 52rem;
-  font-size: 2rem;
-}
-
-/* ELEMENTS STYLE */
 h1 {
-  font-size: 4rem;
+  font-size: clamp(2rem, 4vw, 4rem);
   text-align: center;
-  position: absolute;
-  width: 100%;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.number {
-  background: #eee;
-  color: #333;
-  font-size: 6rem;
-  width: 15rem;
-  padding: 3rem 0rem;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
+  line-height: 1.6;
+  max-width: 90%;
 }
 
 .between {
-  font-size: 1.4rem;
   position: absolute;
   top: 2rem;
   right: 2rem;
+  font-size: 1.2rem;
+  text-align: right;
 }
 
 .again {
@@ -82,38 +53,250 @@ h1 {
   left: 2rem;
 }
 
+.number {
+  background: #eee;
+  color: #333;
+  font-size: clamp(3.5rem, 6vw, 6rem);
+  width: 15rem;
+  min-height: 11rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+}
+
+/* MAIN LAYOUT */
+
+main {
+  min-height: 65vh;
+  color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 3rem;
+  padding: 8rem 5%;
+}
+
+.left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right {
+  width: 50%;
+  font-size: clamp(1.2rem, 1.5vw, 2rem);
+  line-height: 1.8;
+}
+
+/* INPUT */
+
 .guess {
   background: none;
   border: 4px solid #eee;
   font-family: inherit;
   color: inherit;
-  font-size: 5rem;
-  padding: 2.5rem;
-  width: 25rem;
+  font-size: 4rem;
+  padding: 2rem;
+  width: min(100%, 25rem);
   text-align: center;
-  display: block;
   margin-bottom: 3rem;
+  border-radius: 0;
 }
+
+.guess:focus {
+  outline: 3px solid #60b347;
+  outline-offset: 4px;
+}
+
+.guess::placeholder {
+  color: #777;
+}
+
+/* BUTTONS */
 
 .btn {
   border: none;
   background-color: #eee;
   color: #222;
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 1.5vw, 2rem);
   font-family: inherit;
   padding: 2rem 3rem;
   cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+  min-height: 5.5rem;
 }
 
 .btn:hover {
   background-color: #ccc;
+  transform: translateY(-2px);
 }
 
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:focus-visible {
+  outline: 3px solid #60b347;
+  outline-offset: 4px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* GAME INFORMATION */
+
 .message {
-  margin-bottom: 8rem;
-  height: 3rem;
+  margin-bottom: 4rem;
+  min-height: 4rem;
 }
 
 .label-score {
   margin-bottom: 2rem;
+}
+
+/* TABLET RESPONSIVENESS */
+
+@media (max-width: 768px) {
+  html {
+    font-size: 55%;
+  }
+
+  header {
+    min-height: 32vh;
+  }
+
+  main {
+    min-height: 68vh;
+    gap: 2rem;
+    padding: 8rem 3%;
+  }
+
+  .left,
+  .right {
+    width: 48%;
+  }
+
+  .guess {
+    width: 100%;
+    max-width: 22rem;
+  }
+
+  .btn {
+    padding: 1.8rem 2rem;
+  }
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 550px) {
+  html {
+    font-size: 50%;
+  }
+
+  header {
+    min-height: 30vh;
+    padding: 7rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.8;
+    max-width: 100%;
+  }
+
+  .between {
+    font-size: 1rem;
+    top: 2.5rem;
+    right: 1rem;
+  }
+
+  .again {
+    top: 2rem;
+    left: 1rem;
+  }
+
+  .btn {
+    font-size: 1.2rem;
+    padding: 1.8rem 1.5rem;
+    min-height: 5rem;
+  }
+
+  .number {
+    width: 12rem;
+    min-height: 9rem;
+    font-size: 4rem;
+  }
+
+  main {
+    min-height: 70vh;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5rem;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+  }
+
+  .left {
+    gap: 1rem;
+  }
+
+  .guess {
+    width: 80%;
+    max-width: 25rem;
+    font-size: 3.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .right {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .message {
+    margin-bottom: 3rem;
+    min-height: 4rem;
+    line-height: 1.8;
+  }
+
+  .label-score {
+    margin-bottom: 2rem;
+  }
+}
+
+/* EXTRA SMALL MOBILE DEVICES */
+
+@media (max-width: 350px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .between {
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    padding: 1.5rem 1rem;
+  }
+
+  .right {
+    font-size: 1.1rem;
+  }
 }
